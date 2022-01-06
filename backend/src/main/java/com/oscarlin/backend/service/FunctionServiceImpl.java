@@ -1,12 +1,14 @@
-package com.oscarlin.backend.entity.service;
+package com.oscarlin.backend.service;
 
 import com.oscarlin.backend.entity.domain.Function;
 import com.oscarlin.backend.entity.repository.FunctionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class FunctionServiceImpl implements FunctionService {
@@ -35,7 +37,11 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public Map<String,  List<Function>> findAllMap() {
-        return functionRepository.findAllMap();
+    public Map<String,  List<Function>> findAllRemakeMenu() {
+        Map<String, List<Function>> formats =  findAll().stream()
+                .sorted(Comparator.comparing(Function::getSortNo))
+                .collect(Collectors.groupingBy(Function::getUpLevel));
+
+        return formats;
     }
 }

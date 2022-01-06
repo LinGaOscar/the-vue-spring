@@ -25,6 +25,10 @@ export default {
   async created() {
     await this.axios.get('/api/test').then((response) => {
       console.log(response.data)
+    }).catch((err) => {
+      console.log(err)
+    }).finally(() => {
+      console.log('done')
     })
   }
 }

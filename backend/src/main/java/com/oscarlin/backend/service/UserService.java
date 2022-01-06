@@ -1,4 +1,4 @@
-package com.oscarlin.backend.entity.service;
+package com.oscarlin.backend.service;
 
 import com.oscarlin.backend.entity.domain.User;
 

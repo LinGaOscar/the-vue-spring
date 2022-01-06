@@ -1,4 +1,4 @@
-package com.oscarlin.backend.entity.service;
+package com.oscarlin.backend.service;
 
 import com.oscarlin.backend.entity.domain.Function;
 
@@ -10,5 +10,5 @@ public interface FunctionService {
     Function upDateFunction(Function function);
     List<Function> findAll();
 
-    Map<String, List<Function>>findAllMap();
+    Map<String, List<Function>> findAllRemakeMenu();
 }
