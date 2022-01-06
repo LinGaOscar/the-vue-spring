@@ -21,7 +21,12 @@ export default {
       responseResult: []
     }
   },
-  methods: {}
+  methods: {},
+  async created() {
+    await this.axios.get('/api/test').then((response) => {
+      console.log(response.data)
+    })
+  }
 }
 
 </script>

@@ -2,6 +2,12 @@ server:
   port: 8005
   servlet:
     context-path: /api
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: springboot
+    key-store-type: pkcs12
+    key-alias: springboot
+    key-password: springboot
 
 spring:
   jpa:
