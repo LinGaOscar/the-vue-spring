@@ -11,6 +11,9 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 
+const axios = require('axios');
+Vue.prototype.$axios = axios
+axios.defaults.baseURL = 'http://localhost:8005/api'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -19,10 +19,12 @@
       ></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 100%;  border: none"
-      >登入
-      </el-button
+      <el-button
+        type="primary"
+        style="width: 100%;  border: none"
       >
+        登入
+      </el-button>
     </el-form-item>
   </el-form>
   </body>
@@ -40,7 +42,15 @@ export default {
       responseResult: []
     };
   },
-  methods: {}
+  methods: {},
+  created() {
+    this.$axios.get('/test').then(resp => {
+      console.log(resp);
+    }).catch(resp => {
+
+    }).finally(() => {
+    })
+  }
 };
 </script>
 
