@@ -11,8 +11,8 @@
       <span>Option 2</span>
     </a-menu-item>
 
-    <a-sub-menu key="sub1">
-      <span slot="title"><a-icon type="mail"/><span>Navigation One</span></span>
+    <a-sub-menu v-for="(values,index) in menu" :key="index" >
+      <span slot="title"><a-icon type="mail"/><span>{{values.functionName}}</span></span>
       <a-menu-item key="5">
         Option 5
       </a-menu-item>
@@ -27,16 +27,45 @@
 <script>
 export default {
   name: "x-sider", data() {
-    return {}
+    return {
+      menuTemp:[]
+    }
   },
-  async created() {
-    await this.axios.get('/api/test').then((response) => {
-      console.log(response.data)
-    }).catch((err) => {
-      console.log(err)
-    }).finally(() => {
-      console.log('sider done')
+  mounted() {
+    this.$nextTick(function (){
+      this.getSider();
     })
+  },computed:{
+    menu: function () {
+      let temp = []
+      if (this.menuTemp) {
+        this.menuTemp.side_menu.forEach(r => {
+          if (r.functionId == "system_setting") {
+            r.object = this.menuTemp.system_setting
+          }
+          if (r.functionId == "task_setting") {
+            r.object = this.menuTemp.task_setting
+          }
+          if (r.functionId == "report_output") {
+            r.object = this.menuTemp.report_output
+          }
+        })
+        temp = this.menuTemp.side_menu
+      }
+      console.log(temp)
+      return temp;
+    },
+  },methods:{
+    async getSider() {
+      await this.axios.get('/api/test').then((response) => {
+        // console.log(response.data)
+        this.menuTemp = response.data
+      }).catch((err) => {
+        console.log(err)
+      }).finally(() => {
+        console.log('sider done')
+      })
+    }
   }
 }
 </script>
