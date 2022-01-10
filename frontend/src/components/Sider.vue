@@ -1,23 +1,12 @@
 <template>
-  <a-menu theme="dark" mode="inline" :default-selected-keys="['1']"
-          :default-open-keys="['sub1']" :style="{lineHeight:'64px',height:'100%'}">
+  <a-menu theme="dark" mode="inline" :default-selected-keys="['user_list']"
+          :default-open-keys="[0]" :style="{lineHeight:'64px',height:'100%'}">
 
-    <a-menu-item key="1">
-      <a-icon type="pie-chart"/>
-      <span>Option 1</span>
-    </a-menu-item>
-    <a-menu-item key="2">
-      <a-icon type="desktop"/>
-      <span>Option 2</span>
-    </a-menu-item>
-
-    <a-sub-menu v-for="(values,index) in menu" :key="index" >
-      <span slot="title"><a-icon type="mail"/><span>{{values.functionName}}</span></span>
-      <a-menu-item key="5">
-        Option 5
-      </a-menu-item>
-      <a-menu-item key="6">
-        Option 6
+    <a-sub-menu v-for="(values,index) in menu" :key="index">
+      <span slot="title"><a-icon type="bars"/><span>{{ values.functionName }}</span></span>
+      <a-menu-item v-for="value in values.object" :key="value.functionId"
+                   @click="routerPush(value.functionId)">
+        {{ value.functionName }}
       </a-menu-item>
 
     </a-sub-menu>
@@ -28,17 +17,17 @@
 export default {
   name: "x-sider", data() {
     return {
-      menuTemp:[]
+      menuTemp: []
     }
   },
-  mounted() {
-    this.$nextTick(function (){
-      this.getSider();
+  created() {
+    this.$nextTick(function () {
+      this.getSider()
     })
-  },computed:{
+  }, computed: {
     menu: function () {
       let temp = []
-      if (this.menuTemp) {
+      if (this.menuTemp != "") {
         this.menuTemp.side_menu.forEach(r => {
           if (r.functionId == "system_setting") {
             r.object = this.menuTemp.system_setting
@@ -52,10 +41,9 @@ export default {
         })
         temp = this.menuTemp.side_menu
       }
-      console.log(temp)
       return temp;
     },
-  },methods:{
+  }, methods: {
     async getSider() {
       await this.axios.get('/api/test').then((response) => {
         // console.log(response.data)
@@ -63,8 +51,12 @@ export default {
       }).catch((err) => {
         console.log(err)
       }).finally(() => {
-        console.log('sider done')
+        // console.log('sider done')
+        this.routerPush('user_list')
       })
+    },
+    routerPush(index){
+      this.$router.push(index)
     }
   }
 }

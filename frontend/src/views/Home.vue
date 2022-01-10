@@ -8,7 +8,7 @@
         <Sider/>
       </a-layout-sider>
       <a-layout-content>
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <router-view/>
       </a-layout-content>
     </a-layout>
     <a-layout-footer>Footer</a-layout-footer>
@@ -18,14 +18,12 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import Menu from '@/components/Menu.vue'
 import Sider from "@/components/Sider"
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
     Menu,
     Sider
   }
