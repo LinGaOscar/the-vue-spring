@@ -15,12 +15,13 @@
 
 <script>
 export default {
-  name: "x-sider", data() {
+  name: "x-sider",
+  data() {
     return {
       menuTemp: []
     }
   },
-  created() {
+  mounted() {
     this.$nextTick(function () {
       this.getSider()
     })
@@ -45,7 +46,7 @@ export default {
     },
   }, methods: {
     async getSider() {
-      await this.axios.get('/api/test').then((response) => {
+      await this.axios.get('/api/getSider').then((response) => {
         // console.log(response.data)
         this.menuTemp = response.data
       }).catch((err) => {
@@ -54,9 +55,10 @@ export default {
         // console.log('sider done')
         this.routerPush('user_list')
       })
+
     },
-    routerPush(index){
-      this.$router.push(index)
+    routerPush(index) {
+      this.$router.push(index).catch(err => err)
     }
   }
 }
