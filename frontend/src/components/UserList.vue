@@ -1,24 +1,51 @@
 <template>
-  <div>
+  <a-layout>
     <h2>User List</h2>
-    <a-table :columns="columns" :data-source="userListTemp" :scroll="{ x: 1500, y: 300 }">
+    <a-table :columns="columns"
+             :data-source="userListTemp" bordered
+             :row-key="record => record.userId">
     </a-table>
 
-  </div>
+  </a-layout>
 
 </template>
 
 <script>
 export default {
   name: "UserList",
-  data(){
-    return{
-      userListTemp:[],
-      columns:[
-
+  data() {
+    return {
+      userListTemp: [],
+      columns: [
+        {
+          title: '姓名',
+          dataIndex: 'userName',
+          width: '20%',
+          sorter: (a, b) => a.userName.length - b.userName.length,
+        },
+        {
+          title: '使用群',
+          dataIndex: 'group.groupName',
+          width: 100,
+        },
+        {
+          title: '部門',
+          dataIndex: 'department.departmentName',
+          width: 150,
+        },
+        {
+          title: '處',
+          dataIndex: 'department.division.divisionName',
+          width: 150,
+        },
+        {
+          title: '啟用',
+          dataIndex: 'isDelete',
+          width: 150,
+        }
       ]
     }
-  },mounted() {
+  }, mounted() {
     this.$nextTick(function () {
       this.getUserList()
     })
@@ -26,12 +53,10 @@ export default {
   methods: {
     async getUserList() {
       await this.axios.get('/api/getAllUser').then((response) => {
-        // console.log(response.data)
-        this.userListTemp=response.data
+        this.userListTemp = response.data
       }).catch((err) => {
         console.log(err)
       }).finally(() => {
-        // console.log('sider done')
       })
     }
 

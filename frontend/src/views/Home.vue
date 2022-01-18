@@ -7,11 +7,11 @@
       <a-layout-sider>
         <Sider/>
       </a-layout-sider>
-      <a-layout-content>
+      <a-layout-content :style="{padding:'10px',margin:0 ,minHeight:'300px'}">
         <router-view/>
       </a-layout-content>
     </a-layout>
-    <a-layout-footer>Footer</a-layout-footer>
+    <a-layout-footer :style="{maxHeight:'50px'}">Footer</a-layout-footer>
   </a-layout>
 
 </template>
